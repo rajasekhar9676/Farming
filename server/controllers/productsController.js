@@ -36,21 +36,15 @@ const authMiddleware=require('../middleware/authMiddleware')
 //   }
 // };
 
-
 exports.addProduct = async (req, res) => {
   let image;
 
-  // If a file was uploaded (local file)
   if (req.file) {
-    // Construct a full URL for the uploaded file
     const serverUrl = `${req.protocol}://${req.get('host')}`;
     image = `${serverUrl}/uploads/${req.file.filename}`;
-  } 
-  // If an image URL is provided in the request body
-  else if (req.body.imageUrl) {
+  } else if (req.body.imageUrl) {
     image = req.body.imageUrl;
-  } 
-  else {
+  } else {
     return res.status(400).json({ message: 'No image uploaded and no image URL provided' });
   }
 
@@ -58,16 +52,19 @@ exports.addProduct = async (req, res) => {
     const { name, price, quantity, negotiable } = req.body;
     const farmerId = req.user.id;
 
-    // Create the product instance with the image URL (local or external)
+    if (!name || !price || !quantity) {
+      return res.status(400).json({ message: 'Name, price, and quantity are required' });
+    }
+
     const product = new Product({ name, price, quantity, image, negotiable, farmerId });
 
-    // Save the product to the database
     await product.save();
     res.status(201).json({ message: 'Product added successfully', product });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.getProducts = async (req, res) => {
   try {
@@ -94,6 +91,17 @@ exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
     res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+exports.getFarmerProducts = async (req, res) => {
+  try {
+    const farmerId = req.user.id;
+    const products = await Product.find({ farmerId });
+    res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
