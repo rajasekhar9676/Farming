@@ -75,16 +75,53 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+exports.getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id).populate('farmerId', 'name phoneNumber address email');
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+    const farmerId = req.user.id;
+
+    let image;
+
+    if (req.file) {
+      const serverUrl = `${req.protocol}://${req.get('host')}`;
+      image = `${serverUrl}/uploads/${req.file.filename}`;
+    }
+
+    const updatedData = { ...req.body };
+
+    // Only update image if a new one is uploaded
+    if (image) {
+      updatedData.image = image;
+    } else if (updatedData.image === 'null' || updatedData.image === null || updatedData.image === undefined) {
+      delete updatedData.image;
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, { new: true });
+
     res.status(200).json({ message: 'Product updated successfully', updatedProduct });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.deleteProduct = async (req, res) => {
   try {
