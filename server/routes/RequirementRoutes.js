@@ -1,13 +1,19 @@
-const express=require('express')
+const express = require('express');
+const {
+  addRequirement,
+  getRequirements,
+  getAllRequirements,
+  updateRequirement,
+  deleteRequirement
+} = require('../controllers/requirementController');
+const { authBuyerMiddleware } = require('../middleware/authMiddleware');
 
-const {addRequirement,getRequirements,getAllRequirements}=require('../controllers/requirementController')
-const {authBuyerMiddleware}=require('../middleware/authMiddleware')
-const router=express.Router()
+const router = express.Router();
 
+router.post('/create', authBuyerMiddleware, addRequirement);
+router.get('/getBuyerRequirements', authBuyerMiddleware, getRequirements);
+router.get('/getAllRequirements', getAllRequirements);
+router.put('/update/:id', authBuyerMiddleware, updateRequirement);
+router.delete('/delete/:id', authBuyerMiddleware, deleteRequirement);
 
-router.post('/createRequirement',authBuyerMiddleware,addRequirement)
-router.get('/getRequirement',getRequirements)
-router.get('/allRiq',getAllRequirements) 
-
-module.exports=router 
-
+module.exports = router;
