@@ -1,12 +1,13 @@
 const Requirement = require('../models/Requirement');
 
-// Add Requirement
+// CREATE - Add Requirement
 const addRequirement = async (req, res) => {
   try {
     const { product, quantity, notes } = req.body;
     const buyerId = req.buyer.id;
 
     const requirement = new Requirement({
+      buyerId,
       buyerId,
       product,
       quantity,
@@ -35,7 +36,7 @@ const getRequirements = async (req, res) => {
 // Get All Requirements
 const getAllRequirements = async (req, res) => {
   try {
-    const products = await Requirement.find();
+    const products = await Requirement.find().populate('buyerId', 'name email');
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -122,11 +122,32 @@ exports.updateProduct = async (req, res) => {
 
     const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, { new: true });
 
+    const farmerId = req.user.id;
+
+    let image;
+
+    if (req.file) {
+      const serverUrl = `${req.protocol}://${req.get('host')}`;
+      image = `${serverUrl}/uploads/${req.file.filename}`;
+    }
+
+    const updatedData = { ...req.body };
+
+    // Only update image if a new one is uploaded
+    if (image) {
+      updatedData.image = image;
+    } else if (updatedData.image === 'null' || updatedData.image === null || updatedData.image === undefined) {
+      delete updatedData.image;
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, { new: true });
+
     res.status(200).json({ message: 'Product updated successfully', updatedProduct });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 
 exports.deleteProduct = async (req, res) => {

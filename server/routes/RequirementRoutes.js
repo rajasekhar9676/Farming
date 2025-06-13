@@ -20,3 +20,4 @@ router.delete('/delete/:id', authBuyerMiddleware, deleteRequirement);
 router.get('/getRequirementWithBuyer/:id', getRequirementWithBuyer);
 
 module.exports = router;
+module.exports = router;
