@@ -1,41 +1,9 @@
 const Product = require('../models/productModel');
-const express=require('express')
-const upload = require('../middleware/uploadMiddleware');  // Import the multer configuration
-const authMiddleware=require('../middleware/authMiddleware')
+const express = require('express');
+const upload = require('../middleware/uploadMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 
-
-
-// exports.addProduct = async (req, res) => {
-//   // Check if the request contains an image URL or an image file
-//   let image;
-
-//   // If a file was uploaded (local file)
-//   if (req.file) {
-//     image = `/uploads/${req.file.filename}`; // Path to the uploaded image
-//   } 
-//   // If an image URL is provided in the request body
-//   else if (req.body.imageUrl) {
-//     image = req.body.imageUrl; // Use the external image URL
-//   } 
-//   else {
-//     return res.status(400).json({ message: 'No image uploaded and no image URL provided' });
-//   }
-
-//   try {
-//     const { name, price, quantity, negotiable } = req.body;
-//     const farmerId = req.user.id; // Assuming user ID is available from middleware
-
-//     // Create the product instance with the image URL (either local or external)
-//     const product = new Product({ name, price, quantity, image, negotiable, farmerId });
-
-//     // Save the product to the database
-//     await product.save();
-//     res.status(201).json({ message: 'Product added successfully', product });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
+// Add Product
 exports.addProduct = async (req, res) => {
   let image;
 
@@ -57,15 +25,15 @@ exports.addProduct = async (req, res) => {
     }
 
     const product = new Product({ name, price, quantity, image, negotiable, farmerId });
-
     await product.save();
+
     res.status(201).json({ message: 'Product added successfully', product });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-
+// Get All Products
 exports.getProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -75,12 +43,13 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+// Get Product By ID
 exports.getProductById = async (req, res) => {
-  console.log('🔥 getProductById route hit'); // 👈 Log to confirm
+  console.log('🔥 getProductById route hit');
 
   try {
     const { id } = req.params;
-    console.log('Fetching product with ID:', id); // 👈 Log the ID
+    console.log('Fetching product with ID:', id);
 
     const product = await Product.findById(id).populate('farmerId', 'name phoneNumber address email');
 
@@ -96,16 +65,13 @@ exports.getProductById = async (req, res) => {
   }
 };
 
-
-
-
+// Update Product
 exports.updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const farmerId = req.user.id;
 
     let image;
-
     if (req.file) {
       const serverUrl = `${req.protocol}://${req.get('host')}`;
       image = `${serverUrl}/uploads/${req.file.filename}`;
@@ -116,27 +82,11 @@ exports.updateProduct = async (req, res) => {
     // Only update image if a new one is uploaded
     if (image) {
       updatedData.image = image;
-    } else if (updatedData.image === 'null' || updatedData.image === null || updatedData.image === undefined) {
-      delete updatedData.image;
-    }
-
-    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, { new: true });
-
-    const farmerId = req.user.id;
-
-    let image;
-
-    if (req.file) {
-      const serverUrl = `${req.protocol}://${req.get('host')}`;
-      image = `${serverUrl}/uploads/${req.file.filename}`;
-    }
-
-    const updatedData = { ...req.body };
-
-    // Only update image if a new one is uploaded
-    if (image) {
-      updatedData.image = image;
-    } else if (updatedData.image === 'null' || updatedData.image === null || updatedData.image === undefined) {
+    } else if (
+      updatedData.image === 'null' ||
+      updatedData.image === null ||
+      updatedData.image === undefined
+    ) {
       delete updatedData.image;
     }
 
@@ -148,8 +98,7 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-
-
+// Delete Product
 exports.deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -160,7 +109,7 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
-
+// Get Products of a Farmer
 exports.getFarmerProducts = async (req, res) => {
   try {
     const farmerId = req.user.id;
@@ -170,4 +119,3 @@ exports.getFarmerProducts = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
