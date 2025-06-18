@@ -28,6 +28,7 @@ const BuyerRegister = () => {
         try {
             const response = await axios.post(`${BASE_URL}/api/buyers/register`, formData);
             setSuccess('Registration successful!');
+            console.log(response.data);
         } catch (err) {
             setError(err.response?.data?.message || 'Something went wrong.');
         }

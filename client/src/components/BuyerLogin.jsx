@@ -25,6 +25,7 @@ const BuyerLogin = () => {
         try {
             const response = await axios.post(`${BASE_URL}/api/buyers/login`, formData);
             setSuccess('Login successful!');
+            console.log(response.data);
             navigate('/buyer-dashboard')
         } catch (err) {
             setError(err.response?.data?.message || 'Invalid credentials.');

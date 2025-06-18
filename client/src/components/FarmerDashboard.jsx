@@ -15,7 +15,7 @@ const FarmerDashboard = () => {
   const [currentProductId, setCurrentProductId] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const BASE_URL = `https://farming-jl2u.onrender.com/api`; // Update with your backend URL
+  // Update with your backend URL
 
   // Fetch products on component load
   useEffect(() => {

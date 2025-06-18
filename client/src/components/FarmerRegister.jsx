@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from 'react'
-import banner1 from '../assets/banner1.jpg';
+import React,{useState} from 'react'
+
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import {BASE_URL} from '../constants'
