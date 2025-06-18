@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BASE_URL from '../constants';
+import { BASE_URL } from '../constants';
 
 const FarmerDashboard = () => {
   const [products, setProducts] = useState([]);
