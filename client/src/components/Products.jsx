@@ -33,26 +33,50 @@ const Products = ({ limit }) => {
     }
   }, [visibleCount, products.length, limit]);
 
+  // useEffect(() => {
+  //   if (limit) return; // disable infinite scroll when limit is passed (e.g. on Home page)
+
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         loadMore();
+  //       }
+  //     },
+  //     { threshold: 1 }
+  //   );
+
+  //   if (loader.current) {
+  //     observer.observe(loader.current);
+  //   }
+
+  //   return () => {
+  //     if (loader.current) observer.unobserve(loader.current);
+  //   };
+  // }, [loadMore, limit]);
+
+
   useEffect(() => {
-    if (limit) return; // disable infinite scroll when limit is passed (e.g. on Home page)
+  if (limit) return; // disable infinite scroll when limit is passed (e.g. on Home page)
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          loadMore();
-        }
-      },
-      { threshold: 1 }
-    );
+  const element = loader.current; // ✅ store in a local variable
 
-    if (loader.current) {
-      observer.observe(loader.current);
-    }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        loadMore();
+      }
+    },
+    { threshold: 1 }
+  );
 
-    return () => {
-      if (loader.current) observer.unobserve(loader.current);
-    };
-  }, [loadMore, limit]);
+  if (element) {
+    observer.observe(element);
+  }
+
+  return () => {
+    if (element) observer.unobserve(element); // ✅ using the same element
+  };
+}, [loadMore, limit]);
 
   const displayedProducts = limit ? products.slice(0, limit) : products.slice(0, visibleCount);
 
