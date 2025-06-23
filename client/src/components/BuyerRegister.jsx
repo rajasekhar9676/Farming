@@ -35,7 +35,7 @@ const BuyerRegister = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#8fbf21] flex items-center justify-center px-4">
+        <div className="min-h-screen bg-[#8fbf21] flex items-center justify-center px-4 pt-20">
           <form
             className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-3xl mt-7"
             onSubmit={handleSubmit}

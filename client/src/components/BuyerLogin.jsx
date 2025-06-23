@@ -33,7 +33,7 @@ const BuyerLogin = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#8fbf21] flex items-center justify-center px-4">
+        <div className="min-h-screen bg-[#8fbf21] flex items-center justify-center px-4 pt-20">
           <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
             <h2 className="text-3xl font-bold text-center text-[#005225] mb-6">Buyer Login</h2>
       

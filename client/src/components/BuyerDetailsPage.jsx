@@ -23,7 +23,7 @@ const BuyerDetailsPage = () => {
   if (!buyer) return <div className="text-center p-6 text-gray-600">Loading buyer details...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-10">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-10 pt-20">
       <div className="bg-white shadow-2xl rounded-xl p-10 w-full max-w-2xl">
         <h2 className="text-3xl font-bold text-green-800 mb-6 text-center">Buyer Details</h2>
         <div className="space-y-4 text-gray-800 text-lg">

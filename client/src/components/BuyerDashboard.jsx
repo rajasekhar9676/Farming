@@ -84,7 +84,7 @@ const BuyerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex pt-20">
       {/* Sidebar */}
       <aside className="w-64 bg-[#8fbf21] text-white p-6">
         <h2 className="text-xl font-bold mb-6">Buyer Dashboard</h2>

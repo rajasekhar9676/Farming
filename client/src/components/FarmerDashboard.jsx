@@ -24,7 +24,7 @@ const FarmerDashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/products/getFarmerProducts`, {
+      const response = await axios.get(`${BASE_URL}/api/products/getFarmerProducts`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setProducts(response.data);
@@ -53,12 +53,12 @@ const FarmerDashboard = () => {
 
     try {
       if (editMode) {
-        await axios.put(`${BASE_URL}/products/updateProduct/${currentProductId}`, form, {
+        await axios.put(`${BASE_URL}/api/products/updateProduct/${currentProductId}`, form, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         alert('Product updated successfully');
       } else {
-        await axios.post(`${BASE_URL}/products/addProduct`, form, {
+        await axios.post(`${BASE_URL}/api/products/addProduct`, form, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         alert('Product added successfully');
@@ -87,7 +87,7 @@ const FarmerDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/products/deleteProduct/${id}`, {
+      await axios.delete(`${BASE_URL}/api/products/deleteProduct/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       alert('Product deleted successfully');
@@ -98,7 +98,7 @@ const FarmerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex pt-20">
       {/* Sidebar */}
       <aside className="w-64 bg-[#8fbf21] text-white p-6">
         <h2 className="text-xl font-bold mb-6">Farmer Dashboard</h2>

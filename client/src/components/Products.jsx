@@ -81,7 +81,7 @@ const Products = ({ limit }) => {
   const displayedProducts = limit ? products.slice(0, limit) : products.slice(0, visibleCount);
 
   return (
-    <div className="container mx-auto p-4 mb-20">
+    <div className="container mx-auto p-4 mb-20 pt-20">
       <h2 className="text-2xl font-semibold mb-4">Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {displayedProducts.map((product) => (
@@ -93,7 +93,7 @@ const Products = ({ limit }) => {
             />
             <h3 className="text-xl font-semibold">{product.name}</h3>
             <p className="text-gray-600">{product.description}</p>
-            <p className="text-green-500 font-bold">${product.price}</p>
+            <p className="text-green-500 font-bold">Rs. {product.price}</p>
             <p className="text-gray-500">Available: {product.quantity}</p>
             
 <Link to={`/product/${product._id}`}>

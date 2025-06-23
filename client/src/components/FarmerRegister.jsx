@@ -29,9 +29,8 @@ const handleRegister= async(e)=>{
     
   }
 
-
   return (
-    <div className="min-h-screen bg-[#8fbf21] flex items-center justify-center px-4 mt-5">
+    <div className="min-h-screen bg-[#8fbf21] flex items-center justify-center px-4 pt-20">
       <div className="w-full max-w-xl bg-white shadow-xl rounded-2xl p-8">
         <h2 className="text-3xl font-bold text-center text-[#005225] mb-6">
           Farmer Registration
