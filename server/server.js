@@ -19,10 +19,10 @@ connectToDatabase();
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cors());
-app.use(cors({
-    origin: 'http://localhost:3000' // Allow requests only from your frontend origin
-}));
+app.use(cors());
+// app.use(cors({
+//     origin: 'http://localhost:3000' // Allow requests only from your frontend origin
+// }));
 
 
 // Set up multer storage for local file uploads
