@@ -7,6 +7,8 @@ const BuyerDetailsPage = () => {
   const { requirementId } = useParams();
   const [buyer, setBuyer] = useState(null);
 
+const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchBuyerDetails = async () => {
       try {
@@ -14,12 +16,14 @@ const BuyerDetailsPage = () => {
         setBuyer(response.data);
       } catch (error) {
         console.error('Error fetching buyer:', error.message);
+        setError('Buyer details not found or requirement is invalid.');
       }
     };
 
     fetchBuyerDetails();
   }, [requirementId]);
 
+  if (error) return <div className="text-center p-6 text-red-600">{error}</div>;
   if (!buyer) return <div className="text-center p-6 text-gray-600">Loading buyer details...</div>;
 
   return (

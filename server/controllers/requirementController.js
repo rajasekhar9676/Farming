@@ -5,9 +5,15 @@ const addRequirement = async (req, res) => {
   try {
     const { product, quantity, notes } = req.body;
     const buyerId = req.buyer.id;
-
-    const requirement = new Requirement({
+    
+     console.log("👤 Buyer from token:", req.buyer);
+    console.log("📦 Creating Requirement with:", {
       buyerId,
+      product,
+      quantity,
+      notes
+    });
+    const requirement = new Requirement({
       buyerId,
       product,
       quantity,
@@ -15,7 +21,9 @@ const addRequirement = async (req, res) => {
     });
 
     await requirement.save();
+    
     res.status(201).json({ message: 'Requirement added successfully', requirement });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

@@ -23,7 +23,7 @@ const Requirement = () => {
  
 
   const handleContactClick = (id) => {
-    navigate(`/buyer/${id}`);
+   navigate(`/buyer-details/${id}`);
   };
   
 
