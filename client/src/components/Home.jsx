@@ -1,7 +1,7 @@
 import React from 'react'
 // import banner from '../assets/banner.jpg'
 import banner1 from '../assets/banner1.jpg'
-import banner2 from '../assets/banner2.jpg'
+
 import Products from './Products'
 import Requirement from './Requirement'
 import About from './About'
