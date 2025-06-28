@@ -21,12 +21,6 @@ const Requirement = () => {
   }, []);
 
  
-
-  const handleContactClick = (id) => {
-   navigate(`/requirement/${id}`);
-  };
-  
-
   return (
     <div className="bg-gray-100 min-h-screen py-8 pt-20">
       <div className="container mx-auto px-4">
