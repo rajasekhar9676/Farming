@@ -19,13 +19,12 @@ connectToDatabase();
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
-
-
-
-
-
-
+// app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://raitheraju.co.in'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}));
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));

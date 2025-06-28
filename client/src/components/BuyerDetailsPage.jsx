@@ -35,8 +35,15 @@ const [error, setError] = useState(null);
           <p><span className="font-semibold">Email:</span> {buyer.email}</p>
           <p><span className="font-semibold">Phone:</span> {buyer.phoneNumber}</p>
           <p><span className="font-semibold">Address:</span> {buyer.address}</p>
-          <p><span className="font-semibold">Business Type:</span> {buyer.businessType.join(', ')}</p>
-          <p><span className="font-semibold">Preferred Products:</span> {buyer.preferredProducts.join(', ')}</p>
+         <p>
+  <span className="font-semibold">Business Type:</span>{' '}
+  {Array.isArray(buyer.businessType) ? buyer.businessType.join(', ') : buyer.businessType || 'N/A'}
+</p>
+<p>
+  <span className="font-semibold">Preferred Products:</span>{' '}
+  {Array.isArray(buyer.preferredProducts) ? buyer.preferredProducts.join(', ') : buyer.preferredProducts || 'N/A'}
+</p>
+
         </div>
         <div className="mt-6 text-center">
           <a href={`tel:${buyer.phoneNumber}`} className="bg-[#8fbf21] text-white px-6 py-2 rounded hover:bg-green-700 transition">
