@@ -2,7 +2,7 @@
 import './App.css';
 // import Navbar from './components/Navbar';
 
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import {Routes,Route} from 'react-router-dom'
 
 import Navbar from './components/Navbar';
 import Home from './components/Home'
@@ -19,12 +19,16 @@ import Contact from './components/Contact';
 import ProductDetails from './components/ProductDetails';
 import BuyerDetailsPage from './components/BuyerDetailsPage';
 import RequirementDetails from './components/RequirementDetails';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import Disclaimer from './components/Disclaimer';
+import Footer from './components/Footer';
+
 
 function App() {
   return (
     <div className="App">
           <Navbar/>
-      <Router>
+      
         <Routes>
           <Route exact path="/" element={<Home/>}/>
           <Route path='/farmer-register' element={<FarmerRegister/>}/>
@@ -40,9 +44,11 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/buyer-details/:requirementId" element={<BuyerDetailsPage />} />
           <Route path="/requirement/:id" element={<RequirementDetails />} />
-
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path='/footer' element={<Footer/>}/>
         </Routes>
-      </Router>
+      
   
      {/* <Home/> */}
     </div>

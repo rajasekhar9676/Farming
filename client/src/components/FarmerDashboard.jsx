@@ -8,6 +8,7 @@ const FarmerDashboard = () => {
     name: '',
     price: '',
     quantity: '',
+    quantityUnit: '',
     negotiable: false,
     image: null,
   });
@@ -15,9 +16,6 @@ const FarmerDashboard = () => {
   const [currentProductId, setCurrentProductId] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  // Update with your backend URL
-
-  // Fetch products on component load
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -32,7 +30,6 @@ const FarmerDashboard = () => {
       console.error('Error fetching products:', error.message);
     }
   };
-  
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -66,7 +63,7 @@ const FarmerDashboard = () => {
       fetchProducts();
       setEditMode(false);
       setIsFormVisible(false);
-      setFormData({ name: '', price: '', quantity: '', negotiable: false, image: null });
+      setFormData({ name: '', price: '', quantity: '', quantityUnit: '', negotiable: false, image: null });
     } catch (error) {
       console.error('Error submitting product:', error.message);
     }
@@ -79,6 +76,7 @@ const FarmerDashboard = () => {
       name: product.name,
       price: product.price,
       quantity: product.quantity,
+      quantityUnit: product.quantityUnit || '',
       negotiable: product.negotiable,
       image: null,
     });
@@ -119,7 +117,7 @@ const FarmerDashboard = () => {
               onClick={() => {
                 setIsFormVisible(true);
                 setEditMode(false);
-                setFormData({ name: '', price: '', quantity: '', negotiable: false, image: null });
+                setFormData({ name: '', price: '', quantity: '', quantityUnit: '', negotiable: false, image: null });
               }}
             >
               Add Product
@@ -147,8 +145,8 @@ const FarmerDashboard = () => {
               {products.map((product) => (
                 <tr key={product._id}>
                   <td className="border px-4 py-2">{product.name}</td>
-                  <td className="border px-4 py-2">RS. {product.price}</td>
-                  <td className="border px-4 py-2">{product.quantity} kg</td>
+                  <td className="border px-4 py-2">Rs. {product.price}</td>
+                  <td className="border px-4 py-2">{product.quantity} {product.quantityUnit}</td>
                   <td className="border px-4 py-2">{product.negotiable ? 'Yes' : 'No'}</td>
                   <td className="border px-4 py-2 space-x-4">
                     <button
@@ -172,71 +170,84 @@ const FarmerDashboard = () => {
 
         {/* Add/Edit Form */}
         {isFormVisible && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg relative">
-      {/* Close Button */}
-      <button
-        className="absolute top-2 right-2 text-gray-500 hover:text-black"
-        onClick={() => setIsFormVisible(false)}
-      >
-        ✕
-      </button>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg relative">
+              {/* Close Button */}
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-black"
+                onClick={() => setIsFormVisible(false)}
+              >
+                ✕
+              </button>
 
-      <h2 className="text-xl font-bold mb-4">{editMode ? 'Edit Product' : 'Add Product'}</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Product Name"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="p-2 border rounded col-span-2"
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={formData.price}
-            onChange={handleInputChange}
-            className="p-2 border rounded"
-          />
-          <input
-            type="number"
-            name="quantity"
-            placeholder="Quantity"
-            value={formData.quantity}
-            onChange={handleInputChange}
-            className="p-2 border rounded"
-          />
-          <label className="col-span-2 flex items-center">
-            <input
-              type="checkbox"
-              name="negotiable"
-              checked={formData.negotiable}
-              onChange={handleInputChange}
-              className="mr-2"
-            />
-            Negotiable
-          </label>
-          <input
-            type="file"
-            name="image"
-            onChange={handleFileChange}
-            className="p-2 border rounded col-span-2"
-          />
-        </div>
-        <button className="mt-4 bg-green-700 text-white px-4 py-2 rounded">
-          {editMode ? 'Update Product' : 'Add Product'}
-        </button>
-      </form>
-    </div>
-  </div>
-)}
-
+              <h2 className="text-xl font-bold mb-4">{editMode ? 'Edit Product' : 'Add Product'}</h2>
+              <form onSubmit={handleSubmit} encType="multipart/form-data">
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Product Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="p-2 border rounded col-span-2"
+                  />
+                  <input
+                    type="number"
+                    name="price"
+                    placeholder="Price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    className="p-2 border rounded"
+                  />
+                  <input
+                    type="number"
+                    name="quantity"
+                    placeholder="Quantity"
+                    value={formData.quantity}
+                    onChange={handleInputChange}
+                    className="p-2 border rounded"
+                  />
+                  <select
+                    name="quantityUnit"
+                    value={formData.quantityUnit}
+                    onChange={handleInputChange}
+                    className="p-2 border rounded"
+                    required
+                  >
+                    <option value="">Select Unit</option>
+                    <option value="kg">Kg</option>
+                    <option value="quintal">Quintal</option>
+                    <option value="ton">Ton</option>
+                  </select>
+                  <label className="col-span-2 flex items-center">
+                    <input
+                      type="checkbox"
+                      name="negotiable"
+                      checked={formData.negotiable}
+                      onChange={handleInputChange}
+                      className="mr-2"
+                    />
+                    Negotiable
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={handleFileChange}
+                    className="p-2 border rounded col-span-2"
+                  />
+                </div>
+                <button className="mt-4 bg-green-700 text-white px-4 py-2 rounded">
+                  {editMode ? 'Update Product' : 'Add Product'}
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default FarmerDashboard;
+
+

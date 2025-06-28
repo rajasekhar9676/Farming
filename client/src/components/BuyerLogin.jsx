@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {BASE_URL} from '../constants'
+import { useAuth } from '../context/AuthContext';
 
 const BuyerLogin = () => {
+  const {  fetchUser } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -26,6 +28,7 @@ const BuyerLogin = () => {
             const response = await axios.post(`${BASE_URL}/api/buyers/login`, formData);
              const { token } = response.data;
     localStorage.setItem('buyerToken', token); 
+    await fetchUser(); 
             setSuccess('Login successful!');
             console.log(response.data);
             navigate('/buyer-dashboard')

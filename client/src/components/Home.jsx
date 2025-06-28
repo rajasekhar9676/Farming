@@ -6,7 +6,9 @@ import Products from './Products'
 import Requirement from './Requirement'
 import About from './About'
 import Testimonials from './Testimonials'
-import Contact from './Contact'
+// import Contact from './Contact'
+import Footer from './Footer'
+
 const Home=()=>{
     return(
        
@@ -61,7 +63,10 @@ const Home=()=>{
             </div>
 
 
-        </div><About /><Testimonials /><Contact /></>
+        </div><About /><Testimonials />
+        {/* <Contact/> */}
+        <Footer/>
+        </>
     )
 }
 

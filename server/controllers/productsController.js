@@ -7,7 +7,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 exports.addProduct = async (req, res) => {
   let image;
 
-  // ✅ Use Cloudinary uploaded image URL
   if (req.file && req.file.path) {
     image = req.file.path;
   } else if (req.body.imageUrl) {
@@ -17,14 +16,14 @@ exports.addProduct = async (req, res) => {
   }
 
   try {
-    const { name, price, quantity, negotiable } = req.body;
+    const { name, price, quantity, quantityUnit, negotiable } = req.body;
     const farmerId = req.user.id;
 
-    if (!name || !price || !quantity) {
-      return res.status(400).json({ message: 'Name, price, and quantity are required' });
+    if (!name || !price || !quantity || !quantityUnit) {
+      return res.status(400).json({ message: 'Name, price, quantity, and quantity unit are required' });
     }
 
-    const product = new Product({ name, price, quantity, image, negotiable, farmerId });
+    const product = new Product({ name, price, quantity, quantityUnit, image, negotiable, farmerId });
     await product.save();
 
     res.status(201).json({ message: 'Product added successfully', product });
@@ -32,6 +31,7 @@ exports.addProduct = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 
 // Get All Products
@@ -74,7 +74,7 @@ exports.updateProduct = async (req, res) => {
 
     let image;
     if (req.file && req.file.path) {
-      image = req.file.path; // ✅ Cloudinary image URL
+      image = req.file.path;
     }
 
     const updatedData = { ...req.body };
@@ -96,6 +96,7 @@ exports.updateProduct = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 
 // Delete Product

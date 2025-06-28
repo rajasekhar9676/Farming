@@ -4,11 +4,13 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 // import {useHistory} from 'react-router-dom' ;
 import {BASE_URL} from '../constants'
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
   const navigate = useNavigate(); 
+  const {  fetchUser } = useAuth();
   
 // const history=useHistory()
 
@@ -19,7 +21,7 @@ const handleLogin = async (e) => {
     
     // Store the token in localStorage
     localStorage.setItem('token', response.data.token);
-
+    await fetchUser(); 
     console.log(response.data);
     alert('User Login Successfully');
     navigate('/farmer-dashboard'); 
