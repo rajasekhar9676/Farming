@@ -8,8 +8,29 @@ import About from './About'
 import Testimonials from './Testimonials'
 // import Contact from './Contact'
 import Footer from './Footer'
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home=()=>{
+      const { user } = useAuth();
+  const navigate = useNavigate();
+   const handleShopNow = () => {
+    const buyerToken = localStorage.getItem('buyerToken');
+    if (buyerToken && user) {
+      navigate('/buyer-dashboard');
+    } else {
+      navigate('/buyer-login');
+    }
+  };
+
+  const handleSellNow = () => {
+    const farmerToken = localStorage.getItem('token');
+    if (farmerToken && user) {
+      navigate('/farmer-dashboard');
+    } else {
+      navigate('/farmer-login');
+    }
+  };
     return(
        
         <><div className="h-full w-full overflow-hidden">
@@ -18,12 +39,18 @@ const Home=()=>{
                     <h1 className="text-white text-4xl font-bold">Bringing Fresh Produce from Farm to Table</h1>
                     <p className="text-white mt-4 text-lg">Direct from farmers to your doorstep – Fresh, Affordable, Trustworthy</p>
                     <div className="mt-4 flex space-x-4">
-                        <button className="bg-green-400 px-6 py-3 rounded-md text-white font-semibold">
-                            <a href="/buyer-login">Shop Now</a>
-                        </button>
-                        <button className="bg-yellow-300 px-6 py-3 rounded-md text-white font-semibold">
-                            <a href="/farmer-login">Sell Now</a>
-                        </button>
+                        <button
+                onClick={handleShopNow}
+                className="bg-green-400 px-6 py-3 rounded-md text-white font-semibold"
+              >
+                Shop Now
+              </button>
+                         <button
+                onClick={handleSellNow}
+                className="bg-yellow-300 px-6 py-3 rounded-md text-white font-semibold"
+              >
+                Sell Now
+              </button>
                     </div>
                 </div>
             </div>
