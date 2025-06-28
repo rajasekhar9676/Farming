@@ -24,6 +24,8 @@ const BuyerLogin = () => {
         setSuccess('');
         try {
             const response = await axios.post(`${BASE_URL}/api/buyers/login`, formData);
+             const { token } = response.data;
+    localStorage.setItem('buyerToken', token); 
             setSuccess('Login successful!');
             console.log(response.data);
             navigate('/buyer-dashboard')

@@ -22,7 +22,7 @@ const BuyerDashboard = () => {
   const fetchRequirements = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/reqi/getBuyerRequirements`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem('buyerToken')}` },
       });
       setRequirements(response.data);
     } catch (error) {
@@ -41,12 +41,12 @@ const BuyerDashboard = () => {
     try {
       if (editMode) {
         await axios.put(`${BASE_URL}/reqi/update/${currentRequirementId}`, formData, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem('buyerToken')}` },
         });
         alert('Requirement updated successfully');
       } else {
         await axios.post(`${BASE_URL}/reqi/create`, formData, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem('buyerToken')}` },
         });
         alert('Requirement added successfully');
       }
@@ -74,7 +74,7 @@ const BuyerDashboard = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${BASE_URL}/reqi/delete/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem('buyerToken')}` },
       });
       alert('Requirement deleted successfully');
       fetchRequirements();

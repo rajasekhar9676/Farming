@@ -12,7 +12,6 @@ router.get('/getProduct/:id', getProductById);
 // Update a product
 // router.put('/updateProduct/:id', upload.single('image'), updateProduct);
 router.put('/updateProduct/:id', authMiddleware, upload.single('image'), updateProduct);
-
 // Delete a product
 router.delete('/deleteProduct/:id', deleteProduct);
 

@@ -23,7 +23,7 @@ const Requirement = () => {
  
 
   const handleContactClick = (id) => {
-   navigate(`/buyer-details/${id}`);
+   navigate(`/requirement/${id}`);
   };
   
 
@@ -44,7 +44,8 @@ const Requirement = () => {
                 </p>
                 <p className="text-gray-500 text-sm mb-4">{requirement.notes}</p>
                 <button className="bg-[#8fbf21] hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm"
-                onClick={() => handleContactClick(requirement._id)}>
+               onClick={() => navigate(`/requirement/${requirement._id}`)}
+>
                   Contact Buyer
                 </button>
               </div>

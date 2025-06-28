@@ -6,6 +6,7 @@ const {
   updateRequirement,
   deleteRequirement,
   getRequirementWithBuyer,
+
   
 } = require('../controllers/requirementController');
 const { authBuyerMiddleware } = require('../middleware/authMiddleware');
@@ -18,6 +19,9 @@ router.get('/getAllRequirements', getAllRequirements);
 router.put('/update/:id', authBuyerMiddleware, updateRequirement);
 router.delete('/delete/:id', authBuyerMiddleware, deleteRequirement);
 router.get('/getRequirementWithBuyer/:id', getRequirementWithBuyer);
+
+// routes/RequirementRoutes.js
+// router.get('/getRequirementDetails/:id', getRequirementDetails);
 
 module.exports = router;
 module.exports = router;

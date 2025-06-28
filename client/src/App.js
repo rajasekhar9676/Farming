@@ -18,6 +18,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import ProductDetails from './components/ProductDetails';
 import BuyerDetailsPage from './components/BuyerDetailsPage';
+import RequirementDetails from './components/RequirementDetails';
+
 function App() {
   return (
     <div className="App">
@@ -37,6 +39,7 @@ function App() {
           <Route path='/contact' element={<Contact/>}/>
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/buyer-details/:requirementId" element={<BuyerDetailsPage />} />
+          <Route path="/requirement/:id" element={<RequirementDetails />} />
 
         </Routes>
       </Router>

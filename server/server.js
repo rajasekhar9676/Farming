@@ -20,24 +20,10 @@ app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
-// app.use(cors({
-//     origin: 'http://localhost:3000' // Allow requests only from your frontend origin
-// }));
 
 
-// Set up multer storage for local file uploads
 
-// const storage=multer.diskStorage({
-//   destination:(req,file,cb)=>{
-//     cb(null,'uploads/');
-//   },
-//   filename:(req,file,cb)=>{
-//     cb(null,Date.now()+path.extname(file.originalname))
-//   },
-// })
 
-// const upload=multer({storage:storage});
-// app.use('/uploads',express.static('uploads')); 
 
 
 

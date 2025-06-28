@@ -86,9 +86,8 @@ const deleteRequirement = async (req, res) => {
   }
 };
 
- const getRequirementWithBuyer = async (req, res) => {
+const getRequirementWithBuyer = async (req, res) => {
   try {
-    // findById on req.params.id, then populate buyerId
     const requirement = await Requirement
       .findById(req.params.id)
       .populate({
@@ -100,8 +99,7 @@ const deleteRequirement = async (req, res) => {
       return res.status(404).json({ message: 'Requirement not found' });
     }
 
-    // return the populated buyer object
-    res.json(requirement.buyerId);
+    res.status(200).json(requirement); // Return full requirement with buyer populated
   } catch (err) {
     console.error('Error in getRequirementWithBuyer:', err);
     res.status(500).json({ message: err.message });
@@ -109,11 +107,32 @@ const deleteRequirement = async (req, res) => {
 };
 
 
+// controller: requirementController.js
+
+// const getRequirementDetails = async (req, res) => {
+//   try {
+//     const requirement = await Requirement.findById(req.params.id).populate({
+//       path: 'buyerId',
+//       select: 'name email phoneNumber address businessType preferredProducts'
+//     });
+
+//     if (!requirement) {
+//       return res.status(404).json({ message: 'Requirement not found' });
+//     }
+
+//     res.status(200).json(requirement); // 🔁 Full requirement + buyer details
+//   } catch (error) {
+//     console.error('Error in getRequirementDetails:', error);
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 module.exports = {
   addRequirement,
   getRequirements,
   getAllRequirements,
   updateRequirement,
   deleteRequirement,
-  getRequirementWithBuyer
+  getRequirementWithBuyer,
+  // getRequirementDetails
 };
