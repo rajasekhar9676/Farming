@@ -35,14 +35,23 @@ const [error, setError] = useState(null);
           <p><span className="font-semibold">Email:</span> {buyer.email}</p>
           <p><span className="font-semibold">Phone:</span> {buyer.phoneNumber}</p>
           <p><span className="font-semibold">Address:</span> {buyer.address}</p>
-         <p>
+       <p>
   <span className="font-semibold">Business Type:</span>{' '}
-  {Array.isArray(buyer.businessType) ? buyer.businessType.join(', ') : buyer.businessType || 'N/A'}
+  {Array.isArray(buyer?.businessType)
+    ? buyer.businessType.join(', ')
+    : typeof buyer?.businessType === 'string'
+    ? buyer.businessType
+    : 'N/A'}
 </p>
 <p>
   <span className="font-semibold">Preferred Products:</span>{' '}
-  {Array.isArray(buyer.preferredProducts) ? buyer.preferredProducts.join(', ') : buyer.preferredProducts || 'N/A'}
+  {Array.isArray(buyer?.preferredProducts)
+    ? buyer.preferredProducts.join(', ')
+    : typeof buyer?.preferredProducts === 'string'
+    ? buyer.preferredProducts
+    : 'N/A'}
 </p>
+
 
         </div>
         <div className="mt-6 text-center">
