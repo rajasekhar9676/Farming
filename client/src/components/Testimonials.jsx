@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaStar } from 'react-icons/fa';
 
 const testimonials = [
   {
@@ -6,45 +7,55 @@ const testimonials = [
     role: 'Farmer',
     message: 'This platform has helped me connect directly with buyers. I am able to sell my produce faster and at better prices!',
     image: 'https://randomuser.me/api/portraits/men/1.jpg',
+    rating: 5,
   },
   {
     name: 'Sarah Lee',
     role: 'Buyer',
     message: 'A fantastic experience! I found exactly what I was looking for and got fresh products delivered straight to my doorstep.',
     image: 'https://randomuser.me/api/portraits/women/2.jpg',
+    rating: 4,
   },
   {
     name: 'Mike Johnson',
     role: 'Farmer',
     message: 'I’ve been able to expand my business and reach new customers through this platform. It’s simple to use and very effective.',
     image: 'https://randomuser.me/api/portraits/men/2.jpg',
+    rating: 5,
   },
 ];
 
-
 const Testimonials = () => {
   return (
-    <div className=" bg-[#c1e84a] mb-20 p-8">
-      <div className="max-w-6xl mx-auto  p-10">
-        <h1 className="text-4xl font-bold text-white mb-6">What Our Users Say</h1>
-        <p className="text-lg text-white mb-6">
-          Our platform is designed to help farmers and buyers connect, and we are proud of the positive impact it has had on many lives.
-          Read some of the feedback from our happy users.
+    <div className="bg-[#f5fdf6] py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        <h1 className="text-4xl font-bold text-center text-[#005225] mb-4">What Our Users Say</h1>
+        <p className="text-center text-gray-600 text-lg mb-10">
+          Farmers and buyers love our platform. Here’s what a few of them have to say!
         </p>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="flex items-center space-x-6 bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-xl transition-all">
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-lg transition"
+            >
               <img
                 src={testimonial.image}
                 alt={testimonial.name}
-                className="h-16 w-16 rounded-full object-cover border-2 border-[#005225]"
+                className="w-20 h-20 rounded-full border-4 border-[#005225] object-cover mb-4"
               />
-              <div>
-                <h2 className="text-xl font-semibold text-[#005225]">{testimonial.name}</h2>
-                <p className="text-sm text-gray-500">{testimonial.role}</p>
-                <p className="mt-2 text-gray-800 italic">"{testimonial.message}"</p>
+              <h2 className="text-xl font-bold text-[#005225]">{testimonial.name}</h2>
+              <p className="text-sm text-gray-500 mb-2">{testimonial.role}</p>
+
+              {/* Star Ratings */}
+              <div className="flex justify-center mb-4">
+                {Array.from({ length: testimonial.rating }).map((_, i) => (
+                  <FaStar key={i} className="text-yellow-400 mr-1" />
+                ))}
               </div>
+
+              <p className="text-gray-700 italic text-sm">"{testimonial.message}"</p>
             </div>
           ))}
         </div>
@@ -54,5 +65,3 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
-
-

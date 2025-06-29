@@ -22,46 +22,67 @@ const RequirementDetails = () => {
     fetchRequirement();
   }, [id]);
 
-  if (loading) return <div className="text-center py-10 text-green-500">Loading requirement details...</div>;
-  if (!requirement) return <div className="text-center py-10 text-red-500">Requirement not found</div>;
+  if (loading)
+    return <div className="text-center py-20 text-xl text-green-600 mt-10">Loading requirement details...</div>;
+  if (!requirement)
+    return <div className="text-center py-20 text-xl text-red-500">Requirement not found</div>;
 
   const { product, quantity, notes, buyerId } = requirement;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 pt-20">
-      <div className="bg-white shadow-md rounded-xl p-8 space-y-6">
-        <h1 className="text-3xl font-bold text-green-800">Requirement Details</h1>
+    <div className="max-w-5xl mx-auto px-4 py-16">
+      <div className="bg-white shadow-2xl rounded-2xl p-10 space-y-10 border border-gray-200">
 
-        <div className="text-lg text-gray-700 space-y-2">
-          <p><strong>Product:</strong> {product}</p>
-          <p><strong>Quantity:</strong> {quantity}</p>
-          <p><strong>Notes:</strong> {notes || 'No additional notes'}</p>
+        {/* Header */}
+        <div className="text-center">
+          <h1 className="text-4xl font-extrabold text-green-800 mb-2">🛒 Requirement Details</h1>
+          <p className="text-gray-500">Get a detailed overview of this buyer's needs</p>
         </div>
 
-        <hr className="my-4" />
+        {/* Requirement Details */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-700 text-lg">
+          <div>
+            <p><span className="font-semibold text-gray-900">Product:</span> {product}</p>
+          </div>
+          <div>
+            <p><span className="font-semibold text-gray-900">Quantity:</span> {quantity}</p>
+          </div>
+          <div className="sm:col-span-2">
+            <p><span className="font-semibold text-gray-900">Notes:</span> {notes || 'No additional notes'}</p>
+          </div>
+        </div>
 
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Buyer Information</h2>
+        <hr className="my-6" />
 
-      {buyerId ? (
-  <div className="text-gray-700 space-y-2 text-lg">
-    <p><strong>Name:</strong> {buyerId.name}</p>
-    <p><strong>Email:</strong> {buyerId.email}</p>
-    <p><strong>Phone:</strong> {buyerId.phoneNumber}</p>
-    <p><strong>Address:</strong> {buyerId.address}</p>
-    <p><strong>Business Type:</strong> {buyerId.businessType?.join(', ')}</p>
-    <p><strong>Preferred Products:</strong> {buyerId.preferredProducts?.join(', ')}</p>
+        {/* Buyer Information */}
+        <div>
+          <h2 className="text-3xl font-semibold text-gray-800 mb-6">👤 Buyer Information</h2>
 
-    <a
-      href={`tel:${buyerId.phoneNumber}`}
-      className="inline-block bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg mt-6 transition"
-    >
-      📞 Contact Buyer
-    </a>
-  </div>
-) : (
-  <p className="text-red-500">Buyer details not available.</p>
-)}
+          {buyerId ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-gray-700 text-lg">
+              <p><strong>Name:</strong> {buyerId.name}</p>
+              <p><strong>Email:</strong> <a href={`mailto:${buyerId.email}`} className="text-blue-600 hover:underline">{buyerId.email}</a></p>
+              <p><strong>Phone:</strong> <a href={`tel:${buyerId.phoneNumber}`} className="text-blue-600 hover:underline">{buyerId.phoneNumber}</a></p>
+              <p><strong>Address:</strong> {buyerId.address}</p>
+              <p><strong>Business Type:</strong> {buyerId.businessType?.join(', ') || 'N/A'}</p>
+              <p><strong>Preferred Products:</strong> {buyerId.preferredProducts?.join(', ') || 'N/A'}</p>
+            </div>
+          ) : (
+            <p className="text-red-500">Buyer details not available.</p>
+          )}
 
+          {/* Contact Button */}
+          {buyerId && (
+            <div className="mt-8 text-center">
+              <a
+                href={`tel:${buyerId.phoneNumber}`}
+                className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full text-lg shadow-md transition"
+              >
+                📞 Contact Buyer
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

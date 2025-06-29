@@ -37,14 +37,17 @@ const Requirement = () => {
                   <span className="font-medium">Quantity:</span> {requirement.quantity}
                 </p>
                 <p className="text-gray-500 text-sm mb-4">{requirement.notes}</p>
-                <button className="bg-[#8fbf21] hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm"
-               onClick={() => navigate(`/requirement/${requirement._id}`)}
+               <button
+  className="border border-[#005225]  hover:bg-[#005225] hover:text-white
+  px-4 py-2 rounded-md text-sm transition-colors duration-300"
+  onClick={() => navigate(`/requirement/${requirement._id}`)}
 >
-                  Contact Buyer
-                </button>
+  Contact Buyer
+</button>
+
               </div>
             </div>
-          ))}
+         ))}
         </div>
       </div>
     </div>

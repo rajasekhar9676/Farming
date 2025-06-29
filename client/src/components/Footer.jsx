@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#2e3c1f] text-white py-8 mt-10">
+    <footer className="bg-[#005225] text-white py-8 mt-10">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
         
         {/* About / Logo */}
@@ -28,8 +28,12 @@ const Footer = () => {
         {/* Contact Info */}
         <div>
           <h4 className="font-semibold text-lg mb-2">Contact</h4>
-          <p className="text-sm text-gray-300">Email: support@farmconnect.com</p>
-          <p className="text-sm text-gray-300 mt-1">Phone: +91-98765-43210</p>
+          <p className="text-sm text-gray-300">
+  Email: <a href="mailto:info@raitheraju.co.in" className=" hover:text-blue-500">
+    info@raitheraju.co.in
+  </a>
+</p>
+          {/* <p className="text-sm text-gray-300 mt-1">Phone: +91-98765-43210</p> */}
         </div>
       </div>
 
