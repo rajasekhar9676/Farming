@@ -22,7 +22,7 @@ import RequirementDetails from './components/RequirementDetails';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Disclaimer from './components/Disclaimer';
 import Footer from './components/Footer';
-
+import MarketPrices from './components/MarketPrices';
 
 function App() {
   return (
@@ -47,6 +47,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path='/footer' element={<Footer/>}/>
+          <Route path='/market-prices' element={<MarketPrices/>}/>
         </Routes>
       
   
