@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constants';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 const Products = ({ limit }) => {
   const [products, setProducts] = useState([]);
@@ -114,10 +115,15 @@ const Products = ({ limit }) => {
               Loading more products...
             </div>
           )}
+          
         </div>
       )}
+     
     </div>
+    
   );
+  
 };
+
 
 export default Products;

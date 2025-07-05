@@ -18,7 +18,7 @@ const navigation = [
   { name: 'Products', href: '/products', current: false },
   { name: 'About', href: '/about', current: false },
   {name:'Market Prices', href:'market-prices',current:false},
-  { name: 'Contact', href: '/contact', current: false },
+  // { name: 'Contact', href: '/contact', current: false },
 ];
 
 function classNames(...classes) {
