@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useCallback} from 'react';
 
 const MarketPrices = () => {
   const [data, setData] = useState([]);
@@ -14,6 +14,27 @@ const MarketPrices = () => {
   const BASE_URL = 'https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070';
   const RECORDS_PER_PAGE = 100;
 
+ const fetchMoreData = useCallback(async (currentOffset = offset) => {
+  setLoading(true);
+  try {
+    const url = `${BASE_URL}?api-key=${API_KEY}&format=json&limit=${RECORDS_PER_PAGE}&offset=${currentOffset}`;
+    const response = await fetch(url);
+    const json = await response.json();
+
+    if (json.records && json.records.length > 0) {
+      const updatedData = [...data, ...json.records];
+      setData(updatedData);
+      setDisplayData(updatedData);
+      localStorage.setItem('marketData', JSON.stringify(updatedData));
+      setOffset(currentOffset + RECORDS_PER_PAGE);
+    }
+  } catch (error) {
+    console.error('Error fetching market data:', error);
+  }
+  setLoading(false);
+}, [offset, data]); // ✅ include dependencies it relies on
+
+
   useEffect(() => {
     const cached = localStorage.getItem('marketData');
     if (cached) {
@@ -25,27 +46,9 @@ const MarketPrices = () => {
     } else {
       fetchMoreData(0);
     }
-  }, []);
+  }, [fetchMoreData]);
 
-  const fetchMoreData = async (currentOffset = offset) => {
-    setLoading(true);
-    try {
-      const url = `${BASE_URL}?api-key=${API_KEY}&format=json&limit=${RECORDS_PER_PAGE}&offset=${currentOffset}`;
-      const response = await fetch(url);
-      const json = await response.json();
-
-      if (json.records && json.records.length > 0) {
-        const updatedData = [...data, ...json.records];
-        setData(updatedData);
-        setDisplayData(updatedData);
-        localStorage.setItem('marketData', JSON.stringify(updatedData));
-        setOffset(currentOffset + RECORDS_PER_PAGE);
-      }
-    } catch (error) {
-      console.error('Error fetching market data:', error);
-    }
-    setLoading(false);
-  };
+ 
 
   const filteredData = displayData.filter((record) => {
     return (
