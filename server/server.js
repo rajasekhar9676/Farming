@@ -39,10 +39,10 @@ app.use('/api/reqi',require('./routes/RequirementRoutes'))
 
 
 
-// const app = express();
 app.get('/', (req, res) => {
   res.send('Server is running!');
 });
+
 
 // Start the server
 const port = 5000;
